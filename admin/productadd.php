@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                             <label>Price</label>
                         </td>
                         <td>
-                            <input required name="price" type="text" placeholder="Enter Price..." class="medium" />
+                            <input required name="price" type="number" placeholder="Enter Price..." class="medium" />
                         </td>
                     </tr>
 

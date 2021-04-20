@@ -1,9 +1,8 @@
 <?php
-$filepath=realpath(dirname(__FILE__));
-include_once ($filepath.'/../lib/database.php');
-include_once ($filepath.'/../helpers/format.php');
-include ($filepath.'/../lib/session.php');
-Session::checkLogin();
+$filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/database.php');
+include_once($filepath . '/../helpers/format.php');
+include_once($filepath . '/../lib/session.php');
 
 class adminlogin
 {
@@ -34,11 +33,33 @@ class adminlogin
         Session::set('adminId', $value['adminId']);
         Session::set('adminUser', $value['adminUser']);
         Session::set('adminName', $value['adminName']);
+        Session::set('admin', $value);
         header('Location:index.php');
       } else {
         $alert = "User and Pass not match";
         return $alert;
       }
+    }
+  }
+
+  public function change_password($data)
+  {
+    $admin = Session::get('admin');
+    $newpass = md5($data['newpass']);
+    $id = Session::get('adminId');
+    if ($admin['adminPass'] == md5($data['oldpass'])) {
+      $query = "UPDATE tbl_admin SET adminPass='$newpass' WHERE adminId='$id'";
+      $result = $this->db->update($query);
+      if ($result) {
+        $alert = "<span class='success'>Update Password successfully </span>";
+        return $alert;
+      }else{
+        $alert = "<span class='error'>Update Password not successfully </span>";
+        return $alert;
+      }
+    }else{
+      $alert = "<span class='error'>Mật khẩu bạn nhập không chính xác vui lòng nhập lại </span>";
+      return $alert;
     }
   }
 }

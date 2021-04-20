@@ -1,5 +1,6 @@
 <?php
 include '../classes/adminlogin.php';
+Session::checkLogin();
 $class = new adminlogin();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$adminUser = $_POST['adminUser'];

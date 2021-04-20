@@ -1,7 +1,7 @@
 <?php
-$filepath=realpath(dirname(__FILE__));
-include_once ($filepath.'/../lib/database.php');
-include_once ($filepath.'/../helpers/format.php');
+$filepath = realpath(dirname(__FILE__));
+include_once($filepath . '/../lib/database.php');
+include_once($filepath . '/../helpers/format.php');
 
 
 class product
@@ -60,7 +60,8 @@ class product
     return $result;
   }
 
-  public function get_details($id){
+  public function get_details($id)
+  {
     $query = "SELECT tbl_product.*, tbl_category.catName, tbl_brand.brandName
               FROM tbl_product INNER JOIN tbl_category ON tbl_product.catId=tbl_category.catId
               INNER JOIN tbl_brand ON tbl_product.brandId=tbl_brand.brandId
@@ -81,25 +82,29 @@ class product
     }
   }
 
-  public function getLastApple(){
+  public function getLastApple()
+  {
     $query = "SELECT * FROM tbl_product WHERE brandId='3' ORDER BY productId desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
 
-  public function getLastSamsung(){
+  public function getLastSamsung()
+  {
     $query = "SELECT * FROM tbl_product WHERE brandId='2' ORDER BY productId desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
 
-  public function getLastAcer(){
+  public function getLastAcer()
+  {
     $query = "SELECT * FROM tbl_product WHERE brandId='9' ORDER BY productId desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
   }
 
-  public function getLastCanon(){
+  public function getLastCanon()
+  {
     $query = "SELECT * FROM tbl_product WHERE brandId='10' ORDER BY productId desc LIMIT 1";
     $result = $this->db->select($query);
     return $result;
@@ -174,6 +179,10 @@ class product
 
   public function del_product($id)
   {
+    $product = $this->getProductById($id);
+    if ($product != false) {
+      unlink("uploads/" . $product['image']);
+    }
     $query = "DELETE FROM tbl_product WHERE productId = '$id'";
     $result = $this->db->delete($query);
     if ($result) {
@@ -185,7 +194,8 @@ class product
     }
   }
 
-  public function search_product($keyword){
+  public function search_product($keyword)
+  {
     $query = "SELECT * FROM tbl_product WHERE productName LIKE '%$keyword%' ";
     $result = $this->db->select($query);
     return $result;

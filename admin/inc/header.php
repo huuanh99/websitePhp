@@ -3,9 +3,10 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 header("Cache-Control: max-age=2592000");
+
 include_once '../lib/session.php';
 include_once '../lib/database.php';
-include_once('../helpers/format.php');
+include_once '../helpers/format.php';
 Session::checkSession();
 include_once('../classes/cart.php');
 $ct = new cart();

@@ -47,7 +47,6 @@ if (isset($_GET['delId']) && is_numeric($_GET['delId'])) {
 <script type="text/javascript">
 	$(document).ready(function() {
 		setupLeftMenu();
-
 		$('.datatable').dataTable();
 		setSidebarHeight();
 	});
